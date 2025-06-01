@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme{
+    --color-headingcol :#2d353c;
+    --color-mainbg : #f9fbfc;
+    --color-primary: #5046e4;
+    --color-second: #dfe8ff ;
+    --color-secondtext :#514abd;
+    --color-primarytext: #6e6acc;
+    --color-cardbg : #ffffff;
+    --color-cardicons:
+    #b9bcc3;
+    
+}
