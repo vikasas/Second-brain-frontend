@@ -1,1 +1,0 @@
-export const BACKEND_URL = "https://second-brain-backend-2-l77k.onrender.com"
