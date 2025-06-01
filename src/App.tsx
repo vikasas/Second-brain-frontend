@@ -13,8 +13,8 @@ function App(){
   reverseOrder={false}
 /></div>
       <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="signup" element={<Signup/>} />
+          <Route path="/" element={<Signup/>} />
+          <Route path="/home" element={<Home/>} />
           <Route path="signin" element={<Signin/>} />
           <Route path="share" element={<Sharedhome/>} />
       </Routes>
