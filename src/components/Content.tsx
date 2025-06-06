@@ -1,4 +1,4 @@
-import { BACKEND_URL } from "../config";
+
 import { Cross } from "../icons/Cross"
 import { Button } from "./Button"
 import { Input } from "./Input"
@@ -24,7 +24,7 @@ export function Content({open , onclose}){
         const title = titleref.current?.value;
         const link = linkref.current?.value;
         try{
-         await axios.post(`${BACKEND_URL}/api/v1/content` ,{
+         await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/content` ,{
             link,
             type,
             title,
@@ -43,9 +43,9 @@ export function Content({open , onclose}){
     }
     return(
         <div>
-            {open && <div className="w-screen h-screen bg-slate-100 top-0 left-0 fixed opacity-90 z-10 flex justify-center items-center">
-                <div className="w-1/4 h-82 bg-white shadow-lg rounded-md">
-                    <div className="flex justify-end mt-4 mr-4 cursor-pointer">
+            {open && <div className="w-screen h-screen bg-slate-100 dark:bg-black top-0 left-0 fixed opacity-90 z-10 flex justify-center items-center">
+                <div className="w-1/4 h-82 bg-white dark:bg-bggg  shadow-lg rounded-md">
+                    <div className="flex justify-end  mt-4 mr-4 cursor-pointer">
                         <div onClick={onclose}>
                             <Cross/>
                         </div>

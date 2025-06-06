@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { BACKEND_URL } from "../config";
 
 export  function useContent(){
     const [contents , Setcontents] = useState([]);
     const [newcontent , setNewcontent] = useState(false);
     function refresh(){
-        axios.get(`${BACKEND_URL}/api/v1/content` , {
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/content` , {
         headers:{
             "Authorization" : localStorage.getItem("token")
         }}).then((response) => {

@@ -4,13 +4,14 @@ import { Delete } from "../icons/Delete";
 // import { Share } from "../icons/Share";
 import { Twitter } from "../icons/Twitter";
 import { Youtube } from "../icons/Youtube";
-import { BACKEND_URL } from "../config";
+
 
 interface cardprops {
   id: string;
   type: "note" | "youtube" | "twitter";
   title: string;
   link: string;
+  readOnly?:boolean
 }
 
 export function Card(props: cardprops) {
@@ -31,7 +32,7 @@ export function Card(props: cardprops) {
 
   async function Deletecontent(id: string) {
     try {
-      await axios.delete(`${BACKEND_URL}/api/v1/content/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/content/${id}`, {
         headers: {
           Authorization: localStorage.getItem("token") || "",
         },
@@ -59,24 +60,24 @@ export function Card(props: cardprops) {
   }, [normalizedType, props.link]);
 
   return (
-    <div className="w-92 h-auto bg-cardbg shadow-md rounded-md border border-slate-200 p-5">
+    <div className="w-92 h-auto bg-cardbg dark:bg-bggg shadow-md rounded-md border border-slate-200 dark:border-bord p-5">
       <div className="flex justify-between">
         <div className="flex gap-x-3 items-center">
-          <span className="text-cardicons">
+          <span className="text-cardicons dark:fill-white">
             {normalizedType === "youtube" ? <Youtube /> : normalizedType === "twitter" ? <Twitter /> : null}
           </span>
-          <span>{props.title}</span>
+          <span className="text-white dark:text-white">{props.title}</span>
         </div>
-        <div className="flex gap-x-4 text-cardicons">
+        <div className="flex gap-x-4  text-cardicons">
           {/* <div><Share/></div> */}
-          <div
+          {!props.readOnly &&<div
             onClick={() => {
               Deletecontent(props.id);
             }}
-            className="cursor-pointer"
+            className="cursor-pointer "
           >
-            <Delete />
-          </div>
+            <span className="text-cardicons dark:fill-cardico"><Delete /></span>
+          </div>}
         </div>
       </div>
       <div className="w-full mt-4 flex justify-center items-center">

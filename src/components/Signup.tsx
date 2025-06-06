@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { Input } from "./Input";
 import { Button } from "./Button";
-import { BACKEND_URL } from "../config";
+
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-// import { Symbol } from "../icons/Symbol";
+
 
 export function Signup(){
     const emailref = useRef<HTMLInputElement>(null)
@@ -21,7 +21,7 @@ export function Signup(){
 
 
 try{
-     await axios.post(`${BACKEND_URL}/api/v1/signup`, {
+     await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/signup`, {
         email,
         username,
         password,
@@ -56,13 +56,13 @@ try{
         <div className="h-1/2  w-3/5 flex flex-col items-center">
             <div className="mt-8 w-3/4">
                 <h4 className="font-bold text-6xl text-primary">Welocme to Second Brain...</h4>
-                <p className="font-semibold text-xl mt-2 "> Save notes, links, and tasks in one place</p>
+                <p className="font-normal text-xl mt-2 text-black dark:text-white"> Save notes, links, and tasks in one place</p>
             </div>
         </div>
         <div className=" w-2/5  flex ml-4">
-            <div className="w-96 p-5 bg-white  shadow-xl/20 border border-slate-300">
+            <div className="w-96 p-5 bg-white dark:bg-bggg rounded-md shadow-xl/20 border border-slate-300 dark:border-bord">
             <div className="flex justify-center mt-4">
-                <h3 className="text-black text-2xl font-semibold">Sign Up</h3>
+                <h3 className="text-black dark:text-white text-2xl font-semibold">Sign Up</h3>
             </div>
                 <div className="px-6 space-y-4 mt-8">
                     <div>
@@ -89,7 +89,7 @@ try{
                     <Button onClick={submit}  variants="primary" size="fl" text="Signup"/>
                 </div>
                 <div className="flex flex-col justify-end px-6 mt-3 space-y-2">
-                    <p className="text-black font-medium text-xs">Already Signed in ?</p>
+                    <p className="text-black dark:text-smalltext font-medium text-xs">Already Signed in ?</p>
                    <Button onClick={() => {
                     navigate("/signin")
                    }} variants="secondary" size="fl" text="Login"/>
