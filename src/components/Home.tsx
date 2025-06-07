@@ -34,7 +34,7 @@ function Home() {
             "Authorization" : localStorage.getItem("token")
           }
       })
-       await window.navigator.clipboard.writeText("http://localhost:5173/"+ response.data.hash)
+       await window.navigator.clipboard.writeText("https://second-brain-frontend-alpha.vercel.app/"+ response.data.hash)
       toast.success("url copied to the clipboard");
       }catch(e){
         console.log(e);
