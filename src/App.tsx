@@ -4,7 +4,7 @@ import { Signup } from "./components/Signup";
 import { Signin } from "./components/Signin";
 import { Toaster } from "react-hot-toast";
 import { Sharedhome } from "./components/Sharedhome";
-import { ThemeProvider } from "@/components/Theme-provider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 function App() {
   return (
