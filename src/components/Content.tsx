@@ -12,8 +12,12 @@ enum Contenttype {
     Twitter = "twitter",
 
 }
+interface contentprops{
+    open : boolean,
+    onclose : () => void
+}
 
-export function Content({open , onclose}){
+export function Content({open , onclose} : contentprops){
 
    const titleref = useRef<HTMLInputElement>(null);
    const linkref = useRef<HTMLInputElement>(null);

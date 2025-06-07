@@ -7,11 +7,13 @@ import { ModeToggle } from './Mode-toogle';
 
 import { Button } from './Button';
 
+
 export function Sharedhome() {
   const { sharelink } = useParams();
   const [content, setContent] = useState([]);
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
+  const [filter,setFilter] = useState<string>('');
 
   useEffect(() => {
     async function fetchSharedContent() {
@@ -28,10 +30,14 @@ export function Sharedhome() {
       fetchSharedContent();
     }
   }, [sharelink]);
+  const contentfilter = content?.filter(({ type }: { type: string }) => {
+    if (!filter || filter === '') return true;
+    return type.toLowerCase() === filter.toLowerCase();
+  });
 
   return (
     <div className="light:bg-gray-200 dark:bg-black w-screen h-screen overflow-y-auto top-0 left-0">
-      <Sidebar />
+      <Sidebar onFilter={(type: string) => setFilter(type)} />
       <div className="flex sticky top-0 justify-between">
         <h6 className="text-headingcol pl-86 mt-6 text-2xl font-bold">
           Shared Brain by {username}
@@ -42,7 +48,7 @@ export function Sharedhome() {
         </div>
       </div>
       <div className="pl-86 pt-16 flex gap-x-4 flex-wrap space-y-4">
-        {content?.map(({ type, title, link, _id }) => (
+        {contentfilter?.map(({ type, title, link, _id }) => (
           <Card key={_id} id={_id} title={title} type={type} link={link} readOnly />
         ))}
       </div>

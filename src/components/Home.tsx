@@ -43,7 +43,7 @@ function Home() {
 
     }
 
-    const contentfilter = content?.filter(({ type }) => {
+    const contentfilter = content?.filter(({ type }: { type: string }) => {
     if (!filter || filter === '') return true;
     return type.toLowerCase() === filter.toLowerCase();
   });
