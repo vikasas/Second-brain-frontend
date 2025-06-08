@@ -6,47 +6,99 @@ import { Youtube } from "../icons/Youtube";
 import { Button } from "./Button";
 import { SidebarItem } from "./SidebarItem";
 import toast from "react-hot-toast";
+import { X } from "lucide-react";
 
 type SidebarProps = {
   onFilter: (type: string) => void;
+  isOpen: boolean;
+  onClose: () => void;
 };
-export function Sidebar({onFilter} : SidebarProps){
-    const navigate = useNavigate();
-    function logout(){
-        try{
-            localStorage.removeItem("token");
-            toast.success("Loged out Succesfully");
-            navigate("/");
-        }catch(e){
-            console.log(e);
-            toast.error("Try again later");
-        }
-        
+
+export function Sidebar({ onFilter, isOpen, onClose }: SidebarProps) {
+  const navigate = useNavigate();
+
+  function logout() {
+    try {
+      localStorage.removeItem("token");
+      toast.success("Logged out Successfully");
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+      toast.error("Try again later");
     }
-    return(
-        <div className="h-screen w-1/5 bg-cardbg dark:bg-bggg shadow-xl top-0 left-0 absolute border border-slate-200 dark:border-bord flex flex-col items-center">
-            <div className="flex justify-start mt-4 pl-6 gap-x-2 w-full">
-                <div className="flex items-center text-primary">
-                    <Symbol/>
-                </div>
-                <div>
-                    <h3 className="font-bold text-2xl text-headingcol">Second Brain</h3>
-                </div>
-            </div>
-            <div className="w-2/3  mt-10 space-y-4 cursor-pointer ">
-                <div className="hover:bg-second dark:hover:bg-input p-3 rounded-lg">
-                    <SidebarItem onClick={() => onFilter("twitter")} text="Twitter" icon={<Twitter/>} />
-                </div>
-                <div className="hover:bg-second dark:hover:bg-input p-3 rounded-lg">
-                    <SidebarItem onClick={() => onFilter("youtube")} text="Youtube" icon={<Youtube/>} />
-                </div>
-                 <div className="hover:bg-second dark:hover:bg-input p-3 rounded-lg">
-                <SidebarItem onClick={() => onFilter("")} text="All Content" icon={<Symbol />} />
+  }
+
+  return (
+    <>
+      {/* Overlay for mobile */}
+      <div
+        className={`fixed inset-0 z-40 bg-black bg-opacity-40 transition-opacity md:hidden ${
+          isOpen ? "block" : "hidden"
+        }`}
+        onClick={onClose}
+      ></div>
+
+     <div
+  className={`
+    fixed top-0 left-0 h-full md:h-screen z-50 w-64 bg-cardbg dark:bg-bggg shadow-xl border-r border-slate-200 dark:border-bord transform transition-transform duration-300
+    ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 md:static md:block
+  `}
+>
+
+        <div className="flex justify-between items-center mt-4 px-6">
+          <div className="flex items-center gap-x-2 text-primary">
+            <Symbol />
+            <h3 className="font-bold text-2xl text-headingcol">Second Brain</h3>
+          </div>
+          {/* Close button on mobile */}
+          <button onClick={onClose} className="md:hidden text-gray-500">
+            <X />
+          </button>
         </div>
-            </div>
-            <div className="mt-100 mr-6">
-                <Button text="Logout" size="sm" endicon={<Logout/>} variants="primary" onClick={logout} />
-            </div>
+
+        <div className="mt-10 space-y-2  cursor-pointer">
+        <div className="px-8 py-3 hover:bg-slate-400 dark:hover:bg-input">
+          <SidebarItem
+            onClick={() => {
+              onFilter("twitter");
+              onClose();
+            }}
+            text="Twitter"
+            icon={<Twitter />}
+          />
+          </div>
+          <div className="px-8 py-3 hover:bg-slate-400 dark:hover:bg-input">
+          <SidebarItem
+            onClick={() => {
+              onFilter("youtube");
+              onClose();
+            }}
+            text="Youtube"
+            icon={<Youtube />}
+          />
+          </div>
+          <div className="px-8 py-3 hover:bg-slate-400 dark:hover:bg-input">
+          <SidebarItem
+            onClick={() => {
+              onFilter("");
+              onClose();
+            }}
+            text="All Content"
+            icon={<Symbol />}
+          />
+           </div>
         </div>
-    )
+
+        <div className="absolute bottom-6 w-full flex justify-center">
+          <Button
+            text="Logout"
+            size="sm"
+            endicon={<Logout />}
+            variants="primary"
+            onClick={logout}
+          />
+        </div>
+      </div>
+    </>
+  );
 }

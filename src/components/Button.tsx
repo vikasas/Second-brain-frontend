@@ -1,38 +1,47 @@
 import { ReactElement } from "react"
 
- interface buttonpops {
-    variants :  "primary" | "secondary",
-    size: "lg" | "md" | "sm" | "fl",
-    starticon ?: ReactElement,
-    endicon ?: ReactElement,
-    text : string,
-    onClick ?: () => void,
-    readonly?:boolean
+interface ButtonProps {
+  variants: "primary" | "secondary",
+  size: "lg" | "md" | "sm" | "fl",
+  starticon?: ReactElement,
+  endicon?: ReactElement,
+  text: string,
+  onClick?: () => void,
+  readonly?: boolean
 }
 
-const variantstyle = {
-  primary: "bg-primary text-white dark:bg-white dark:hover:bg-btnhover dark:text-black font-medium rounded-md transition-colors duration-300 ",
-  secondary: "bg-secondbtn text-secondtex dark:bg-white dark:hover:bg-btnhover dark:text-black font-medium rounded-md"
+const variantStyle = {
+  primary:
+    "bg-primary text-white dark:bg-white dark:text-black hover:bg-opacity-90 dark:hover:bg-btnhover font-medium rounded-md transition-colors duration-300",
+  secondary:
+    "bg-secondbtn text-secondtex dark:bg-white dark:text-black hover:bg-opacity-90 dark:hover:bg-btnhover font-medium rounded-md"
 };
 
-const sizestyle = {
-    lg : "px-8 py-4",
-    md : "px-7 py-3",
-    sm : "px-5 py-2",
-    fl : "w-full p-2",
-}
+const sizeStyle = {
+  lg: "px-8 py-4 text-base sm:text-lg",
+  md: "px-7 py-3 text-sm sm:text-base",
+  sm: "px-5 py-2 text-sm",
+  fl: "w-full p-2 text-base"
+};
 
+export const Button = (props: ButtonProps) => {
+  if (props.readonly) return null;
 
-export const Button = (props : buttonpops) => {
-  if(props.readonly) return null;
-    return(
-      <button
+  return (
+    <button
       onClick={props.onClick}
-      className={`${variantstyle[props.variants]} ${sizestyle[props.size]} flex items-center justify-center gap-x-2 cursor-pointer`}
+      className={`
+        ${variantStyle[props.variants]}
+        ${sizeStyle[props.size]}
+        flex items-center justify-center gap-x-2 
+        cursor-pointer 
+        focus:outline-none 
+        disabled:opacity-50 disabled:cursor-not-allowed
+      `}
     >
       {props.starticon}
       {props.text}
       {props.endicon}
     </button>
-    )
-} 
+  );
+};
