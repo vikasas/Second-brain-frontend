@@ -17,7 +17,7 @@ export function Signup() {
       if(token){
         navigate("/home")
       }
-  },[])
+  },[navigate])
 
   async function submit() {
     const email = emailref.current?.value;

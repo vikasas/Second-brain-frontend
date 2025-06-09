@@ -10,7 +10,12 @@ export function Signin() {
   const passwordref = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
- 
+  useEffect(()=>{
+      const token = localStorage.getItem("token");
+      if(token){
+        navigate("/home")
+      }
+  },[navigate])
 
   async function submit() {
     const email = emailref.current?.value;
