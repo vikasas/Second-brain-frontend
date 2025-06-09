@@ -16,19 +16,30 @@ interface cardprops {
 
 export function Card(props: cardprops) {
   const getYoutubeEmbedUrl = (url: string): string => {
-    try {
-      const parsedUrl = new URL(url);
-      const videoId = parsedUrl.searchParams.get("v");
-      if (!videoId) {
-        console.error("No video ID found in URL:", url);
-        return "";
-      }
-      return `https://www.youtube.com/embed/${videoId}`;
-    } catch (err) {
-      console.error("Invalid URL passed to getYoutubeEmbedUrl:", url, err);
-      return "";
+  try {
+    const parsedUrl = new URL(url);
+
+    // Handle standard YouTube URLs
+    const videoIdFromParam = parsedUrl.searchParams.get("v");
+    if (videoIdFromParam) {
+      return `https://www.youtube.com/embed/${videoIdFromParam}`;
     }
-  };
+
+    // Handle youtu.be links
+    if (parsedUrl.hostname === "youtu.be") {
+      const videoId = parsedUrl.pathname.split("/")[1];
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+
+    // Fallback or unrecognized format
+    console.error("Unrecognized YouTube URL format:", url);
+    return "";
+  } catch (err) {
+    console.error("Invalid URL passed to getYoutubeEmbedUrl:", url, err);
+    return "";
+  }
+};
+
 
   async function Deletecontent(id: string) {
     try {
