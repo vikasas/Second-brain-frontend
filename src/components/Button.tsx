@@ -19,7 +19,7 @@ const variantStyle = {
 
 const sizeStyle = {
   lg: "px-8 py-4 text-base sm:text-lg",
-  md: "lg:px-7 lg:py-3 px-7 py-2 text-xs lg:text-sm ",
+  md: "lg:px-7 lg:py-3 px-7 py-2 text-xs lg:text-sm",
   sm: "px-5 py-2 text-sm",
   fl: "w-full p-2 text-base"
 };

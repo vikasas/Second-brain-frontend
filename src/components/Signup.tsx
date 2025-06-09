@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState , useEffect } from "react";
 import { Input } from "./Input";
 import { Button } from "./Button";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 
 export function Signup() {
   const emailref = useRef<HTMLInputElement>(null);
@@ -11,6 +11,13 @@ export function Signup() {
   const passwordref = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const [errors, setErrors] = useState<Record<string, string[]>>({});
+
+   useEffect(()=>{
+      const token = localStorage.getItem("token");
+      if(token){
+        navigate("/home")
+      }
+  },[])
 
   async function submit() {
     const email = emailref.current?.value;
